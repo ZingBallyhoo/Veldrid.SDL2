@@ -1,0 +1,3 @@
+[submodule "ext/nativelibraryloader"]
+	path = ext/nativelibraryloader
+	url = https://github.com/mellinoe/nativelibraryloader
