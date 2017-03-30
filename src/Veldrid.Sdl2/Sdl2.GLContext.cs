@@ -4,9 +4,9 @@ namespace Veldrid.Sdl2
 {
     public static unsafe partial class Sdl2Native
     {
-        private delegate IntPtr SDL_GL_CreateContext_t(IntPtr window);
+        private delegate IntPtr SDL_GL_CreateContext_t(SDL_Window window);
         private static SDL_GL_CreateContext_t s_gl_createContext = LoadFunction<SDL_GL_CreateContext_t>("SDL_GL_CreateContext");
-        public static IntPtr SDL_GL_CreateContext(IntPtr window) => s_gl_createContext(window);
+        public static IntPtr SDL_GL_CreateContext(SDL_Window window) => s_gl_createContext(window);
 
         private delegate IntPtr SDL_GL_GetProcAddress_t(string proc);
         private static SDL_GL_GetProcAddress_t s_getProcAddress = LoadFunction<SDL_GL_GetProcAddress_t>("SDL_GL_GetProcAddress");
@@ -23,8 +23,8 @@ namespace Veldrid.Sdl2
             return ret;
         }
 
-        private delegate void SDL_GL_SwapWindow_t(IntPtr window);
+        private delegate void SDL_GL_SwapWindow_t(SDL_Window window);
         private static SDL_GL_SwapWindow_t s_gl_swapWindow = LoadFunction<SDL_GL_SwapWindow_t>("SDL_GL_SwapWindow");
-        public static void SDL_GL_SwapWindow(IntPtr window) => s_gl_swapWindow(window);
+        public static void SDL_GL_SwapWindow(SDL_Window window) => s_gl_swapWindow(window);
     }
 }

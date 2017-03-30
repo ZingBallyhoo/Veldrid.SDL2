@@ -4,9 +4,9 @@ namespace Veldrid.Sdl2
 {
     public static unsafe partial class Sdl2Native
     {
-        private delegate int SDL_GetWindowWMInfo_t(IntPtr window, SDL_SysWMinfo* info);
+        private delegate int SDL_GetWindowWMInfo_t(SDL_Window window, SDL_SysWMinfo* info);
         private static readonly SDL_GetWindowWMInfo_t s_getWindowWMInfo = LoadFunction<SDL_GetWindowWMInfo_t>("SDL_GetWindowWMInfo");
-        public static int SDL_GetWMWindowInfo(IntPtr window, SDL_SysWMinfo* info) => s_getWindowWMInfo(window, info);
+        public static int SDL_GetWMWindowInfo(SDL_Window window, SDL_SysWMinfo* info) => s_getWindowWMInfo(window, info);
     }
 
     public struct SDL_SysWMinfo
