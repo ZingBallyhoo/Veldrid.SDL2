@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Numerics;
 using System.Runtime.CompilerServices;
@@ -10,13 +11,12 @@ namespace Veldrid.Sdl2
     public unsafe class Sdl2Window : Window
     {
         private readonly IntPtr _window;
-        private IntPtr _handle;
-
-        private Rectangle _bounds;
+        private bool _exists;
 
         public Sdl2Window(string title, int x, int y, int width, int height, SDL_WindowFlags flags)
         {
             _window = SDL_CreateWindow(title, x, y, width, height, flags);
+            _exists = true;
         }
 
         public int Width { get => GetWindowSize().Width; set => SetWindowSize(value, Height); }
@@ -30,7 +30,6 @@ namespace Veldrid.Sdl2
             get
             {
                 SDL_WindowFlags flags = SDL_GetWindowFlags(_window);
-                WindowState state = WindowState.Normal;
                 if ((flags & (SDL_WindowFlags.Borderless | SDL_WindowFlags.Fullscreen)) == (SDL_WindowFlags.Borderless | SDL_WindowFlags.Fullscreen))
                 {
                     return WindowState.BorderlessFullScreen;
@@ -75,17 +74,31 @@ namespace Veldrid.Sdl2
             }
         }
 
-        public bool Exists => throw new NotImplementedException();
+        public bool Exists => _exists;
 
-        public bool Visible { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public bool Visible
+        {
+            get => (SDL_GetWindowFlags(_window) & SDL_WindowFlags.Shown) != 0;
+            set
+            {
+                if (value)
+                {
+                    SDL_ShowWindow(_window);
+                }
+                else
+                {
+                    SDL_HideWindow(_window);
+                }
+            }
+        }
 
-        public Vector2 ScaleFactor => throw new NotImplementedException();
+        public Vector2 ScaleFactor => Vector2.One;
 
-        public Rectangle Bounds => throw new NotImplementedException();
+        public Rectangle Bounds => new Rectangle(GetWindowPosition(), GetWindowSize());
 
         public bool CursorVisible { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
-        public bool Focused => throw new NotImplementedException();
+        public bool Focused => (SDL_GetWindowFlags(_window) & SDL_WindowFlags.InputFocus) != 0;
 
         public event Action Resized;
         public event Action Closing;
@@ -95,22 +108,35 @@ namespace Veldrid.Sdl2
 
         public Point ClientToScreen(Point p)
         {
-            throw new NotImplementedException();
+            Point position = GetWindowPosition();
+            return new Point(p.X + position.X, p.Y + position.Y);
         }
 
         public void Close()
         {
-            throw new NotImplementedException();
+            SDL_DestroyWindow(_window);
+            _exists = false;
         }
 
         public InputSnapshot GetInputSnapshot()
         {
-            throw new NotImplementedException();
+            SDL_PumpEvents();
+            SDL_Event @event;
+            while (SDL_PollEvent(&@event) != 0) { }
+            return new SimpleInputSnapshot();
         }
 
         public Point ScreenToClient(Point p)
         {
-            throw new NotImplementedException();
+            Point position = GetWindowPosition();
+            return new Point(p.X - position.X, p.Y - position.Y);
+        }
+
+        private Point GetWindowPosition()
+        {
+            int x, y;
+            SDL_GetWindowPosition(_window, &x, &y);
+            return new Point(x, y);
         }
 
         private Size GetWindowSize()
@@ -141,5 +167,24 @@ namespace Veldrid.Sdl2
 
         private bool GetWindowBordered() => (SDL_GetWindowFlags(_window) & SDL_WindowFlags.Borderless) == 0;
         private void SetWindowBordered(bool value) => SDL_SetWindowBordered(_window, value ? 1u : 0u);
+
+        private class SimpleInputSnapshot : InputSnapshot
+        {
+            public IReadOnlyList<KeyEvent> KeyEvents => Array.Empty<KeyEvent>();
+
+            public IReadOnlyList<MouseEvent> MouseEvents => Array.Empty<MouseEvent>();
+
+            public IReadOnlyList<char> KeyCharPresses => Array.Empty<char>();
+
+            public Vector2 MousePosition => new Vector2();
+
+            public float WheelDelta => 0f;
+
+            public bool IsMouseDown(MouseButton button)
+            {
+                return false;
+            }
+        }
+
     }
 }
