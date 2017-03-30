@@ -1,9 +1,13 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard1.6</TargetFramework>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Veldrid.Sdl2.Imports.msbuild" />
+  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\ext\nativelibraryloader\NativeLibraryLoader\NativeLibraryLoader.csproj" />

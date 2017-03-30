@@ -60,7 +60,11 @@ namespace Veldrid.Sdl2
         Leave,          /**< Window has lost mouse focus */
         FocusGained,   /**< Window has gained keyboard focus */
         FocusLost,     /**< Window has lost keyboard focus */
-        Close,          /**< The window manager requests that the window be closed */
+
+        /// <summary>
+        /// The window manager requests that the window be closed.
+        /// </summary>
+        Close,
         TakeFocus,     /**< Window is being offered a focus (should SetWindowInputFocus() on itself or a subwindow, or ignore) */
         HitTest        /**< Window had a hit test that wasn't SDL_HITTEST_NORMAL. */
     }
@@ -70,109 +74,118 @@ namespace Veldrid.Sdl2
     /// </summary>
     public enum SDL_EventType
     {
-        SDL_FIRSTEVENT = 0,     /**< Unused (do not remove) */
+        FirstEvent = 0,     /**< Unused (do not remove) */
 
         /* Application events */
-        SDL_QUIT = 0x100, /**< User-requested quit */
 
-        /* These application events have special meaning on iOS, see README-ios.md for details */
-        SDL_APP_TERMINATING,        /**< The application is being terminated by the OS
-                                          Called on iOS in applicationWillTerminate()
-                                          Called on Android in onDestroy()
-                                     */
-        SDL_APP_LOWMEMORY,          /**< The application is low on memory, free memory if possible.
-                                          Called on iOS in applicationDidReceiveMemoryWarning()
-                                          Called on Android in onLowMemory()
-                                     */
-        SDL_APP_WILLENTERBACKGROUND, /**< The application is about to enter the background
+        /// <summary>
+        /// User-requested quit.
+        /// </summary>
+        Quit = 0x100,
+
+        /// <summary>
+        /// The application is being terminated by the OS.
+        /// Called on iOS in applicationWillTerminate()
+        /// Called on Android in onDestroy()
+        /// </summary>
+        Terminating,
+
+        /// <summary>
+        /// The application is low on memory, free memory if possible.
+        /// Called on iOS in applicationDidReceiveMemoryWarning()
+        /// Called on Android in onLowMemory()
+        /// </summary>
+        LowMemory,
+
+        WillEnterBackground, /**< The application is about to enter the background
                                           Called on iOS in applicationWillResignActive()
                                           Called on Android in onPause()
                                      */
-        SDL_APP_DIDENTERBACKGROUND, /**< The application did enter the background and may not get CPU for some time
+        DidEnterBackground, /**< The application did enter the background and may not get CPU for some time
                                           Called on iOS in applicationDidEnterBackground()
                                           Called on Android in onPause()
                                      */
-        SDL_APP_WILLENTERFOREGROUND, /**< The application is about to enter the foreground
+        WillEnterForeground, /**< The application is about to enter the foreground
                                           Called on iOS in applicationWillEnterForeground()
                                           Called on Android in onResume()
                                      */
-        SDL_APP_DIDENTERFOREGROUND, /**< The application is now interactive
+        DidEnterForeground, /**< The application is now interactive
                                           Called on iOS in applicationDidBecomeActive()
                                           Called on Android in onResume()
                                      */
 
         /* Window events */
-        SDL_WINDOWEVENT = 0x200, /**< Window state change */
-        SDL_SYSWMEVENT,             /**< System specific event */
+        WindowEvent = 0x200, /**< Window state change */
+        SysWMEvent,             /**< System specific event */
 
         /* Keyboard events */
-        SDL_KEYDOWN = 0x300, /**< Key pressed */
-        SDL_KEYUP,                  /**< Key released */
-        SDL_TEXTEDITING,            /**< Keyboard text editing (composition) */
-        SDL_TEXTINPUT,              /**< Keyboard text input */
-        SDL_KEYMAPCHANGED,          /**< Keymap changed due to a system event such as an
+        KeyDown = 0x300, /**< Key pressed */
+        KeyUp,                  /**< Key released */
+        TextEditing,            /**< Keyboard text editing (composition) */
+        TextInput,              /**< Keyboard text input */
+        KeyMapChanged,          /**< Keymap changed due to a system event such as an
                                           input language or keyboard layout change.
                                      */
 
         /* Mouse events */
-        SDL_MOUSEMOTION = 0x400, /**< Mouse moved */
-        SDL_MOUSEBUTTONDOWN,        /**< Mouse button pressed */
-        SDL_MOUSEBUTTONUP,          /**< Mouse button released */
-        SDL_MOUSEWHEEL,             /**< Mouse wheel motion */
+        MouseMotion = 0x400, /**< Mouse moved */
+        MouseButtonDown,        /**< Mouse button pressed */
+        MouseButtonUp,          /**< Mouse button released */
+        MouseWheel,             /**< Mouse wheel motion */
 
         /* Joystick events */
-        SDL_JOYAXISMOTION = 0x600, /**< Joystick axis motion */
-        SDL_JOYBALLMOTION,          /**< Joystick trackball motion */
-        SDL_JOYHATMOTION,           /**< Joystick hat position change */
-        SDL_JOYBUTTONDOWN,          /**< Joystick button pressed */
-        SDL_JOYBUTTONUP,            /**< Joystick button released */
-        SDL_JOYDEVICEADDED,         /**< A new joystick has been inserted into the system */
-        SDL_JOYDEVICEREMOVED,       /**< An opened joystick has been removed */
+        JoyAxisMotion = 0x600, /**< Joystick axis motion */
+        JoyBallMotion,          /**< Joystick trackball motion */
+        JoyHatMotion,           /**< Joystick hat position change */
+        JoyButtonDown,          /**< Joystick button pressed */
+        JoyButtonUp,            /**< Joystick button released */
+        JoyDeviceAdded,         /**< A new joystick has been inserted into the system */
+        JoyDeviceRemoved,       /**< An opened joystick has been removed */
 
         /* Game controller events */
-        SDL_CONTROLLERAXISMOTION = 0x650, /**< Game controller axis motion */
-        SDL_CONTROLLERBUTTONDOWN,          /**< Game controller button pressed */
-        SDL_CONTROLLERBUTTONUP,            /**< Game controller button released */
-        SDL_CONTROLLERDEVICEADDED,         /**< A new Game controller has been inserted into the system */
-        SDL_CONTROLLERDEVICEREMOVED,       /**< An opened Game controller has been removed */
-        SDL_CONTROLLERDEVICEREMAPPED,      /**< The controller mapping was updated */
+        ControllerAxisMotion = 0x650, /**< Game controller axis motion */
+        ControllerButtonDown,          /**< Game controller button pressed */
+        ControllerButtonUp,            /**< Game controller button released */
+        ControllerDeviceAdded,         /**< A new Game controller has been inserted into the system */
+        ControllerDeviceRemoved,       /**< An opened Game controller has been removed */
+        ControllerDeviceRemapped,      /**< The controller mapping was updated */
 
         /* Touch events */
-        SDL_FINGERDOWN = 0x700,
-        SDL_FINGERUP,
-        SDL_FINGERMOTION,
+        FingerDown = 0x700,
+        FingerUp,
+        FingerMotion,
 
         /* Gesture events */
-        SDL_DOLLARGESTURE = 0x800,
-        SDL_DOLLARRECORD,
-        SDL_MULTIGESTURE,
+        DollarGesture = 0x800,
+        DollarRecord,
+        MultiGesture,
 
         /* Clipboard events */
-        SDL_CLIPBOARDUPDATE = 0x900, /**< The clipboard changed */
+        ClipboardUpdate = 0x900, /**< The clipboard changed */
 
         /* Drag and drop events */
-        SDL_DROPFILE = 0x1000, /**< The system requests a file open */
-        SDL_DROPTEXT,                 /**< text/plain drag-and-drop event */
-        SDL_DROPBEGIN,                /**< A new set of drops is beginning (NULL filename) */
-        SDL_DROPCOMPLETE,             /**< Current set of drops is now complete (NULL filename) */
+        DropFile = 0x1000, /**< The system requests a file open */
+        DropTest,                 /**< text/plain drag-and-drop event */
+        DropBegin,                /**< A new set of drops is beginning (NULL filename) */
+        DropComplete,             /**< Current set of drops is now complete (NULL filename) */
 
         /* Audio hotplug events */
-        SDL_AUDIODEVICEADDED = 0x1100, /**< A new audio device is available */
-        SDL_AUDIODEVICEREMOVED,        /**< An audio device has been removed. */
+        AudioDeviceAdded = 0x1100, /**< A new audio device is available */
+        AudioDeviceRemoved,        /**< An audio device has been removed. */
 
         /* Render events */
-        SDL_RENDER_TARGETS_RESET = 0x2000, /**< The render targets have been reset and their contents need to be updated */
-        SDL_RENDER_DEVICE_RESET, /**< The device has been reset and all textures need to be recreated */
+        RenderTargetsReset = 0x2000, /**< The render targets have been reset and their contents need to be updated */
+        RenderDeviceReset, /**< The device has been reset and all textures need to be recreated */
 
         /** Events ::SDL_USEREVENT through ::SDL_LASTEVENT are for your use,
          *  and should be allocated with SDL_RegisterEvents()
          */
-        SDL_USEREVENT = 0x8000,
+        UserEvent = 0x8000,
 
         /**
          *  This last event is only for bounding internal arrays
          */
-        SDL_LASTEVENT = 0xFFFF
+        LastEvent = 0xFFFF
     }
 
     /// <summary>
@@ -180,16 +193,111 @@ namespace Veldrid.Sdl2
     /// </summary>
     public struct SDL_MouseMotionEvent
     {
-        public SDL_EventType type;        /**< :: SDL_MOUSEMOTION */
+        public SDL_EventType type;
         public uint timestamp;
-        public uint windowID;    /**< The window with mouse focus, if any */
-        public uint which;       /**< The mouse instance id, or SDL_TOUCH_MOUSEID */
-        public ButtonState state;       /**< The current button state */
-        public int x;           /**< X coordinate, relative to window */
-        public int y;           /**< Y coordinate, relative to window */
-        public int xrel;        /**< The relative motion in the X direction */
-        public int yrel;        /**< The relative motion in the Y direction */
+        /// <summary>
+        /// The window with mouse focus, if any.
+        /// </summary>
+        public uint windowID;
+        /// <summary>
+        /// The mouse instance id, or SDL_TOUCH_MOUSEID.
+        /// </summary>
+        public uint which;
+        /// <summary>
+        /// The current button state.
+        /// </summary>
+        public ButtonState state;
+        /// <summary>
+        /// X coordinate, relative to window.
+        /// </summary>
+        public int x;
+        /// <summary>
+        /// Y coordinate, relative to window.
+        /// </summary>
+        public int y;
+        /// <summary>
+        /// The relative motion in the X direction.
+        /// </summary>
+        public int xrel;
+        /// <summary>
+        /// The relative motion in the Y direction.
+        /// </summary>
+        public int yrel;
     }
+
+    /// <summary>
+    /// Mouse button event structure (event.button.*)
+    /// </summary>
+    public struct SDL_MouseButtonEvent
+    {
+        /// <summary>
+        /// SDL_MOUSEBUTTONDOWN or ::SDL_MOUSEBUTTONUP.
+        /// </summary>
+        public SDL_EventType type;
+        public uint timestamp;
+        /// <summary>
+        /// The window with mouse focus, if any.
+        /// </summary>
+        public uint windowID;
+        /// <summary>
+        /// The mouse instance id, or SDL_TOUCH_MOUSEID.
+        /// </summary>
+        public uint which;
+        /// <summary>
+        /// The mouse button index.
+        /// </summary>
+        public SDL_MouseButton button;
+        /// <summary>
+        /// Pressed (1) or Released (0).
+        /// </summary>
+        public byte state;
+        /// <summary>
+        /// 1 for single-click, 2 for double-click, etc.
+        /// </summary>
+        public byte clicks;
+        public byte padding1;
+        /// <summary>
+        /// X coordinate, relative to window.
+        /// </summary>
+        public int x;
+        /// <summary>
+        /// Y coordinate, relative to window
+        /// </summary>
+        public int y;
+    }
+
+    /// <summary>
+    /// Mouse wheel event structure (event.wheel.*).
+    /// </summary>
+    public struct SDL_MouseWheelEvent
+    {
+        /// <summary>
+        /// SDL_MOUSEWHEEL.
+        /// </summary>
+        public SDL_EventType type;
+        public uint timestamp;
+        /// <summary>
+        /// The window with mouse focus, if any.
+        /// </summary>
+        public uint windowID;
+        /// <summary>
+        /// The mouse instance id, or SDL_TOUCH_MOUSEID.
+        /// </summary>
+        public uint which;
+        /// <summary>
+        /// The amount scrolled horizontally, positive to the right and negative to the left.
+        /// </summary>
+        public int x;
+        /// <summary>
+        /// The amount scrolled vertically, positive away from the user and negative toward the user.
+        /// </summary>
+        public int y;
+        /// <summary>
+        /// Set to one of the SDL_MOUSEWHEEL_* defines. When FLIPPED the values in X and Y will be opposite. Multiply by -1 to change them back.
+        /// </summary>
+        public uint direction;
+    }
+
 
     [Flags]
     public enum ButtonState : uint
@@ -199,5 +307,72 @@ namespace Veldrid.Sdl2
         Right = 1 << 2,
         X1 = 1 << 3,
         X2 = 1 << 4,
+    }
+
+    /// <summary>
+    /// Keyboard button event structure (event.key.*).
+    /// </summary>
+    public struct SDL_KeyboardEvent
+    {
+        public SDL_EventType type;        /**< ::SDL_KEYDOWN or ::SDL_KEYUP */
+        public uint timestamp;
+        public uint windowID;    /**< The window with keyboard focus, if any */
+        /// <summary>
+        /// Pressed (1) or Released (0).
+        /// </summary>
+        public byte state;
+        public byte repeat;       /**< Non-zero if this is a key repeat */
+        public byte padding2;
+        public byte padding3;
+        public SDL_Keysym keysym;  /**< The key that was pressed or released */
+    }
+
+    [StructLayout(LayoutKind.Sequential)]
+    public struct SDL_Keysym
+    {
+        /// <summary>
+        /// SDL physical key code.
+        /// </summary>
+        public SDL_Scancode scancode;
+        /// <summary>
+        /// SDL virtual key code.
+        /// </summary>
+        public SDL_Keycode sym;
+        /// <summary>
+        /// current key modifiers.
+        /// </summary>
+        public SDL_Keymod mod;
+        private uint __unused;
+    }
+
+    public enum SDL_MouseButton : byte
+    {
+        Left = 1,
+        Middle = 2,
+        Right = 3,
+        X1 = 4,
+        X2 = 5,
+    }
+
+    /// <summary>
+    /// Keyboard text input event structure (event.text.*)
+    /// </summary>
+    public unsafe struct SDL_TextInputEvent
+    {
+        public const int MaxTextSize = 32;
+
+        /// <summary>
+        /// SDL_TEXTINPUT.
+        /// </summary>
+        public SDL_EventType type;
+        public uint timestamp;
+        /// <summary>
+        /// The window with keyboard focus, if any.
+        /// </summary>
+        public uint windowID;
+        /// <summary>
+        /// The input text.
+        /// </summary>
+        public fixed byte text[MaxTextSize];
     }
 }

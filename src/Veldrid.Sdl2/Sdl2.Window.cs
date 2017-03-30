@@ -4,13 +4,13 @@ namespace Veldrid.Sdl2
 {
     public static unsafe partial class Sdl2Native
     {
-        private delegate IntPtr SDL_CreateWindow_t(string title, int x, int y, int w, int h, SDL_WindowFlags flags);
+        private delegate SDL_Window SDL_CreateWindow_t(string title, int x, int y, int w, int h, SDL_WindowFlags flags);
         private static SDL_CreateWindow_t s_sdl_createWindow = LoadFunction<SDL_CreateWindow_t>("SDL_CreateWindow");
-        public static IntPtr SDL_CreateWindow(string title, int x, int y, int w, int h, SDL_WindowFlags flags) => s_sdl_createWindow(title, x, y, w, h, flags);
+        public static SDL_Window SDL_CreateWindow(string title, int x, int y, int w, int h, SDL_WindowFlags flags) => s_sdl_createWindow(title, x, y, w, h, flags);
 
-        private delegate IntPtr SDL_DestroyWindow_t(SDL_Window window);
+        private delegate void SDL_DestroyWindow_t(SDL_Window window);
         private static SDL_DestroyWindow_t s_sdl_destroyWindow = LoadFunction<SDL_DestroyWindow_t>("SDL_DestroyWindow");
-        public static IntPtr SDL_DestroyWindow(SDL_Window window) => s_sdl_destroyWindow(window);
+        public static void SDL_DestroyWindow(SDL_Window window) => s_sdl_destroyWindow(window);
 
         private delegate void SDL_GetWindowSize_t(SDL_Window window, int* w, int* h);
         private static SDL_GetWindowSize_t s_getWindowSize = LoadFunction<SDL_GetWindowSize_t>("SDL_GetWindowSize");
