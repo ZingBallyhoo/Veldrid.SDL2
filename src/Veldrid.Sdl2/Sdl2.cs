@@ -1,4 +1,6 @@
 ﻿using NativeLibraryLoader;
+using System.Diagnostics;
+using System.Runtime.InteropServices;
 
 namespace Veldrid.Sdl2
 {
@@ -7,7 +9,22 @@ namespace Veldrid.Sdl2
         private static readonly NativeLibrary s_sdl2Lib = LoadSdl2();
         private static NativeLibrary LoadSdl2()
         {
-            NativeLibrary lib = new NativeLibrary("SDL2.dll");
+            string name;
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                name = "SDL2.dll";
+            }
+            else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+            {
+                name = "libSDL2-2.0.so";
+            }
+            else
+            {
+                Debug.WriteLine("Unknown SDL platform. Attempting to load \"SDL2\"");
+                name = "SDL2";
+            }
+
+            NativeLibrary lib = new NativeLibrary(name);
             return lib;
         }
 

@@ -38,6 +38,12 @@ namespace Veldrid.Sdl2
         public IntPtr hinstance;
     }
 
+    public struct X11WindowInfo
+    {
+        public IntPtr display;
+        public IntPtr window;
+    }
+
     public enum SysWMType
     {
         Unknown,

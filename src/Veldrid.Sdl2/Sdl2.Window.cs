@@ -20,6 +20,10 @@ namespace Veldrid.Sdl2
         private static SDL_GetWindowPosition_t s_getWindowPosition = LoadFunction<SDL_GetWindowPosition_t>("SDL_GetWindowPosition");
         public static void SDL_GetWindowPosition(SDL_Window window, int* x, int* y) => s_getWindowPosition(window, x, y);
 
+        private delegate void SDL_SetWindowPosition_t(SDL_Window window, int x, int y);
+        private static SDL_SetWindowPosition_t s_setWindowPosition = LoadFunction<SDL_SetWindowPosition_t>("SDL_SetWindowPosition");
+        public static void SDL_SetWindowPosition(SDL_Window window, int x, int y) => s_setWindowPosition(window, x, y);
+
         private delegate void SDL_SetWindowSize_t(SDL_Window window, int w, int h);
         private static SDL_SetWindowSize_t s_setWindowSize = LoadFunction<SDL_SetWindowSize_t>("SDL_SetWindowSize");
         public static void SDL_SetWindowSize(SDL_Window window, int w, int h) => s_setWindowSize(window, w, h);
