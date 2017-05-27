@@ -26,15 +26,16 @@ namespace Veldrid.Sdl2
         private unsafe struct Bytex56 { private fixed byte bytes[56]; }
     }
 
+    [StructLayout(LayoutKind.Sequential)]
     public struct SDL_WindowEvent
     {
         public SDL_EventType type;        /**< ::SDL_WINDOWEVENT */
         public uint timestamp;
         public uint windowID;    /**< The associated window */
         public SDL_WindowEventID @event;        /**< ::SDL_WindowEventID */
-        public byte padding1;
-        public byte padding2;
-        public byte padding3;
+        private byte padding1;
+        private byte padding2;
+        private byte padding3;
         public int data1;       /**< event dependent data */
         public int data2;       /**< event dependent data */
     }

@@ -63,6 +63,14 @@ namespace Veldrid.Sdl2
         private delegate void SDL_HideWindow_t(SDL_Window window);
         private static SDL_HideWindow_t s_hideWindow = LoadFunction<SDL_HideWindow_t>("SDL_HideWindow");
         public static void SDL_HideWindow(SDL_Window window) => s_hideWindow(window);
+
+        private delegate int SDL_SetWindowOpacity_t(SDL_Window window, float opacity);
+        private static SDL_SetWindowOpacity_t s_setWindowOpacity = LoadFunction<SDL_SetWindowOpacity_t>("SDL_SetWindowOpacity");
+        public static int SDL_SetWindowOpacity(SDL_Window window, float opacity) => s_setWindowOpacity(window, opacity);
+
+        private delegate int SDL_GetWindowOpacity_t(SDL_Window window, float* opacity);
+        private static SDL_GetWindowOpacity_t s_getWindowOpacity = LoadFunction<SDL_GetWindowOpacity_t>("SDL_GetWindowOpacity");
+        public static int SDL_GetWindowOpacity(SDL_Window window, float* opacity) => s_getWindowOpacity(window, opacity);
     }
 
     [Flags]
