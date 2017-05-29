@@ -9,6 +9,7 @@ using System.Text;
 
 using static Veldrid.Sdl2.Sdl2Native;
 using System.Drawing;
+using System.ComponentModel;
 
 namespace Veldrid.Sdl2
 {
@@ -216,7 +217,11 @@ namespace Veldrid.Sdl2
             }
         }
 
-        public InputSnapshot GetInputSnapshot()
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        [Obsolete("GetInputSnapshot is deprecated. Use PumpEvents instead.")]
+        public InputSnapshot GetInputSnapshot() => PumpEvents();
+
+        public InputSnapshot PumpEvents()
         {
             if (_threadedProcessing)
             {

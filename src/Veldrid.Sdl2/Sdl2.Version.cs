@@ -13,5 +13,4 @@
         public byte minor;
         public byte patch;
     }
-
 }

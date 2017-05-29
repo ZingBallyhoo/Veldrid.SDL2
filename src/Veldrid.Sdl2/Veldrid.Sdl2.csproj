@@ -3,10 +3,22 @@
   <PropertyGroup>
     <TargetFramework>netstandard1.6</TargetFramework>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <DocumentationFile Condition="'$(ProduceDocumentation)' == 'true' Or '$(Configuration)' == 'Release'">$(BinDir)\$(AssemblyName).xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
     <None Remove="Veldrid.Sdl2.Imports.msbuild" />
+    <Content Include="$(MSBuildThisFileDirectory)..\..\deps\sdl2\win7-x64\SDL2.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <PackagePath>runtimes/win7-x64/native</PackagePath>
+      <Pack>true</Pack>
+    </Content>
+    <Content Include="$(MSBuildThisFileDirectory)..\..\deps\sdl2\osx.10.10-x64\libsdl2.dylib">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <PackagePath>runtimes/osx.10.10-x64/native</PackagePath>
+      <Pack>true</Pack>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>
@@ -16,5 +28,7 @@
     <PackageReference Include="System.Drawing.Primitives" Version="4.3.0" />
     <PackageReference Include="System.Threading.Thread" Version="4.3.0" />
   </ItemGroup>
+
+  <Import Project="$(MSBuildThisFileDirectory)PackageInfo.props" />
 
 </Project>

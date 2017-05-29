@@ -4,27 +4,22 @@ using System.Text;
 
 namespace Veldrid.Sdl2
 {
-    /**
-     *  \brief The SDL keyboard scancode representation.
-     *
-     *  Values of this type are used to represent keyboard keys, among other places
-     *  in the \link SDL_Keysym::scancode key.keysym.scancode \endlink field of the
-     *  SDL_Event structure.
-     *
-     *  The values in this enumeration are based on the USB usage page standard:
-     *  http://www.usb.org/developers/devclass_docs/Hut1_12v2.pdf
-     */
+
+    /// <summary>
+    /// The SDL keyboard scancode representation.
+    /// Values of this type are used to represent keyboard keys, among other places
+    /// in the SDL_Keysym::scancode key.keysym.scancode field of the
+    /// SDL_Event structure.
+    /// The values in this enumeration are based on the USB usage page standard:
+    /// http://www.usb.org/developers/devclass_docs/Hut1_12v2.pdf
+    /// </summary>
     public enum SDL_Scancode
     {
         SDL_SCANCODE_UNKNOWN = 0,
 
-        /**
-         *  \name Usage page 0x07
-         *
-         *  These values are from usage page 0x07 (USB keyboard page).
+        /*
+         * These values are from usage page 0x07 (USB keyboard page).
          */
-        /* @{ */
-
         SDL_SCANCODE_A = 4,
         SDL_SCANCODE_B = 5,
         SDL_SCANCODE_C = 6,

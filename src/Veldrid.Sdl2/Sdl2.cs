@@ -18,6 +18,10 @@ namespace Veldrid.Sdl2
             {
                 name = "libSDL2-2.0.so";
             }
+            else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+            {
+                name = "libsdl2.dylib";
+            }
             else
             {
                 Debug.WriteLine("Unknown SDL platform. Attempting to load \"SDL2\"");
