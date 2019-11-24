@@ -1,10 +1,18 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard1.6</TargetFramework>
+    <TargetFramework>net471</TargetFramework>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <DocumentationFile Condition="'$(ProduceDocumentation)' == 'true' Or '$(Configuration)' == 'Release'">$(BinDir)\$(AssemblyName).xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <PlatformTarget>x64</PlatformTarget>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
 
   <ItemGroup>
@@ -14,19 +22,11 @@
       <PackagePath>runtimes/win7-x64/native</PackagePath>
       <Pack>true</Pack>
     </Content>
-    <Content Include="$(MSBuildThisFileDirectory)..\..\deps\sdl2\osx.10.10-x64\libsdl2.dylib">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <PackagePath>runtimes/osx.10.10-x64/native</PackagePath>
-      <Pack>true</Pack>
-    </Content>
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\ext\nativelibraryloader\NativeLibraryLoader\NativeLibraryLoader.csproj" />
-    <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="4.3.0" />
-    <PackageReference Include="System.Numerics.Vectors" Version="4.3.0" />
-    <PackageReference Include="System.Drawing.Primitives" Version="4.3.0" />
-    <PackageReference Include="System.Threading.Thread" Version="4.3.0" />
+    <ProjectReference Include="$(MSBuildThisFileDirectory)..\..\ext\nativelibraryloader\NativeLibraryLoader\NativeLibraryLoader.csproj" />
+    <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="4.5.2" />
   </ItemGroup>
 
   <Import Project="$(MSBuildThisFileDirectory)PackageInfo.props" />
